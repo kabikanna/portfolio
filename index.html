@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabilesh Kanna S — Senior Software Engineer</title>
+<meta name="description" content="Kabilesh Kanna S — Senior Software Engineer building backend systems, event-driven microservices and workflow platforms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1A;
+    --surface:#111A2B;
+    --surface-2:#0D1524;
+    --border:#213049;
+    --border-soft:#182238;
+    --text:#E9EEF7;
+    --text-dim:#8DA0C2;
+    --text-faint:#5B6D8C;
+    --accent:#4FD1C5;
+    --accent-soft:rgba(79,209,197,.12);
+    --amber:#F2B84B;
+    --amber-soft:rgba(242,184,75,.12);
+    --red:#E5626F;
+    --red-soft:rgba(229,98,111,.12);
+    --radius:10px;
+    --maxw:1120px;
+    --display:'Space Grotesk',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:.35;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+  ::selection{background:var(--accent);color:#03211E;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(10,15,26,.78);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:var(--maxw);margin:0 auto;padding:18px 28px;
+  }
+  .logo{
+    font-family:var(--mono);font-size:14px;font-weight:600;
+    letter-spacing:.02em;color:var(--text);
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);}
+  .navlinks{display:flex;gap:32px;font-size:14px;color:var(--text-dim);}
+  .navlinks a{transition:color .2s;position:relative;}
+  .navlinks a:hover{color:var(--text);}
+  .navlinks a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .25s;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navcta{
+    font-family:var(--mono);font-size:13px;padding:8px 16px;
+    border:1px solid var(--border);border-radius:6px;color:var(--text);
+    transition:border-color .2s, background .2s;
+  }
+  .navcta:hover{border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle{display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 64px;position:relative;}
+  .eyebrow{
+    font-family:var(--mono);font-size:13px;color:var(--accent);
+    letter-spacing:.08em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:24px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);}
+  .hero h1{
+    font-family:var(--display);
+    font-size:clamp(2.4rem,5.4vw,4.4rem);
+    font-weight:600;line-height:1.06;letter-spacing:-.01em;
+    max-width:15ch;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(100deg,var(--accent),#8fe9df 60%,var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.sub{
+    margin-top:26px;font-size:1.1rem;color:var(--text-dim);
+    max-width:56ch;
+  }
+  .hero-actions{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13.5px;padding:12px 22px;border-radius:6px;
+    display:inline-flex;align-items:center;gap:8px;transition:all .2s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--accent);color:#03211E;font-weight:600;}
+  .btn-primary:hover{background:#6fe1d6;transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text-dim);background:var(--surface);}
+
+  /* ---------- signature: pipeline diagram ---------- */
+  .pipeline{
+    margin-top:72px;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    background:linear-gradient(180deg,var(--surface),var(--surface-2));
+    padding:28px 24px 22px;
+    overflow:hidden;
+  }
+  .pipeline-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:22px;flex-wrap:wrap;gap:10px;
+  }
+  .pipeline-title{font-family:var(--mono);font-size:12.5px;color:var(--text-faint);letter-spacing:.04em;}
+  .pipeline-status{
+    font-family:var(--mono);font-size:12px;color:var(--accent);
+    display:flex;align-items:center;gap:7px;
+  }
+  .pipeline-status .pulse{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    animation:pulseDot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseDot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(79,209,197,.5)}50%{opacity:.5;box-shadow:0 0 0 5px rgba(79,209,197,0)}}
+  svg.flow{width:100%;height:auto;display:block;}
+  .flow-label{font-family:var(--mono);font-size:11px;fill:var(--text-dim);}
+  .flow-sub{font-family:var(--mono);font-size:9.5px;fill:var(--text-faint);}
+  @media (prefers-reduced-motion:no-preference){
+    .flow-pulse{animation:travel 3.6s linear infinite;}
+  }
+  @keyframes travel{
+    0%{offset-distance:0%;opacity:0;}
+    4%{opacity:1;}
+    92%{opacity:1;}
+    98%{opacity:0;}
+    100%{offset-distance:100%;opacity:0;}
+  }
+
+  section{padding:88px 0;position:relative;border-top:1px solid var(--border-soft);}
+  .sec-head{margin-bottom:48px;max-width:60ch;}
+  .sec-eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
+  .sec-head h2{font-family:var(--display);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:600;letter-spacing:-.01em;}
+  .sec-head p{color:var(--text-dim);margin-top:14px;font-size:1.02rem;}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:56px;align-items:start;}
+  .about-grid p{color:var(--text-dim);font-size:1.03rem;margin-bottom:18px;max-width:60ch;}
+  .about-grid strong{color:var(--text);font-weight:600;}
+  .stat-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface);}
+  .stat{padding:20px 22px;border-bottom:1px solid var(--border-soft);}
+  .stat:last-child{border-bottom:none;}
+  .stat .num{font-family:var(--display);font-size:1.9rem;font-weight:600;color:var(--accent);}
+  .stat .lbl{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-top:4px;}
+
+  /* ---------- experience ---------- */
+  .job{
+    display:grid;grid-template-columns:220px 1fr;gap:40px;
+    padding:36px 0;border-top:1px solid var(--border-soft);
+  }
+  .job:first-of-type{border-top:none;}
+  .job-meta{position:sticky;top:100px;}
+  .job-role{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;}
+  .job-role.current::before{content:'● ';}
+  .job-company{font-family:var(--display);font-size:1.2rem;font-weight:600;}
+  .job-time{font-family:var(--mono);font-size:12.5px;color:var(--text-faint);margin-top:6px;}
+  .job-title{font-size:1.05rem;color:var(--text);margin-bottom:16px;font-weight:500;}
+  .job ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .job li{
+    color:var(--text-dim);font-size:.98rem;padding-left:20px;position:relative;
+  }
+  .job li::before{
+    content:'';position:absolute;left:0;top:9px;width:8px;height:1px;background:var(--accent);
+  }
+
+  /* ---------- skills ---------- */
+  .skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .skill-group{background:var(--surface);padding:26px 24px;}
+  .skill-group h3{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:var(--mono);font-size:12.5px;color:var(--text);
+    padding:6px 11px;border:1px solid var(--border);border-radius:5px;
+    background:var(--surface-2);
+  }
+
+  /* ---------- certs / education ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .list-card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);}
+  .list-card h3{
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);letter-spacing:.06em;
+    text-transform:uppercase;padding:18px 22px;border-bottom:1px solid var(--border-soft);
+  }
+  .list-card .row{padding:16px 22px;border-bottom:1px solid var(--border-soft);font-size:.95rem;color:var(--text-dim);}
+  .list-card .row:last-child{border-bottom:none;}
+  .list-card .row .deg{color:var(--text);font-weight:500;display:block;margin-bottom:3px;}
+  .list-card .row .yr{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;}
+  .contact-info p{color:var(--text-dim);margin-bottom:24px;max-width:44ch;}
+  .contact-link{
+    display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:14px;
+    padding:14px 0;border-bottom:1px solid var(--border-soft);color:var(--text);transition:color .2s,padding-left .2s;
+  }
+  .contact-link:hover{color:var(--accent);padding-left:6px;}
+  .contact-link .k{color:var(--text-faint);width:64px;flex-shrink:0;font-size:11px;text-transform:uppercase;letter-spacing:.06em;}
+
+  form{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);padding:28px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-family:var(--mono);font-size:11.5px;color:var(--text-faint);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;}
+  .field input, .field textarea{
+    width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+    padding:12px 14px;color:var(--text);font-family:var(--body);font-size:14.5px;resize:vertical;
+    transition:border-color .2s;
+  }
+  .field input:focus, .field textarea:focus{border-color:var(--accent);outline:none;}
+  .field textarea{min-height:120px;}
+  .form-note{font-size:12.5px;color:var(--text-faint);margin-top:14px;line-height:1.6;}
+  .form-note a{color:var(--accent);border-bottom:1px solid transparent;}
+  .form-note a:hover{border-color:var(--accent);}
+  .form-status{font-family:var(--mono);font-size:12.5px;margin-top:14px;min-height:16px;}
+  .form-status.ok{color:var(--accent);}
+  .form-status.err{color:var(--red);}
+
+  footer{border-top:1px solid var(--border-soft);padding:36px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  footer p{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .foot-links{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--text-dim);}
+  .foot-links a:hover{color:var(--accent);}
+
+  @media (max-width:860px){
+    .navlinks{display:none;}
+    .about-grid,.contact-grid,.two-col{grid-template-columns:1fr;}
+    .job{grid-template-columns:1fr;gap:14px;}
+    .job-meta{position:static;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>KABILESH.DEV</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+    <a class="navcta" href="#contact">Get in touch</a>
+  </nav>
+</header>
+
+<section class="hero wrap" style="border-top:none;padding-top:64px;">
+  <div class="eyebrow">Senior Software Engineer · Backend &amp; Full-Stack</div>
+  <h1>I build the systems that move <span class="grad">approvals, compliance and money</span> safely through the pipe.</h1>
+  <p class="sub">Kabilesh Kanna S — five years designing and shipping backend systems for manufacturing and wealth-management platforms: event-driven microservices, multi-stage approval workflows, and the compliance and cloud infrastructure that keeps them auditable.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#contact">Start a conversation →</a>
+    <a class="btn btn-ghost" href="mailto:kabileshkannas@gmail.com">kabileshkannas@gmail.com</a>
+  </div>
+
+  <div class="pipeline" role="img" aria-label="Diagram of a request moving through validation, compliance screening, approval and notification">
+    <div class="pipeline-head">
+      <span class="pipeline-title">// SME_REQUEST_WORKFLOW.trace()</span>
+      <span class="pipeline-status"><span class="pulse"></span>live</span>
+    </div>
+    <svg class="flow" viewBox="0 0 980 160" xmlns="http://www.w3.org/2000/svg">
+      <path id="flowpath" d="M 70 80 L 340 80 L 340 80 L 640 80 L 910 80" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4 5"/>
+      <!-- nodes -->
+      <g>
+        <circle cx="70" cy="80" r="26" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="70" y="85" text-anchor="middle" class="flow-label" font-size="14" fill="var(--accent)">01</text>
+        <text x="70" y="126" text-anchor="middle" class="flow-label">Request</text>
+        <text x="70" y="140" text-anchor="middle" class="flow-sub">submitted</text>
+      </g>
+      <g>
+        <circle cx="340" cy="80" r="26" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+        <text x="340" y="85" text-anchor="middle" class="flow-label" font-size="14">02</text>
+        <text x="340" y="126" text-anchor="middle" class="flow-label">Validation</text>
+        <text x="340" y="140" text-anchor="middle" class="flow-sub">rules + thresholds</text>
+      </g>
+      <g>
+        <circle cx="610" cy="80" r="26" fill="var(--surface-2)" stroke="var(--amber)" stroke-width="1.5"/>
+        <text x="610" y="85" text-anchor="middle" class="flow-label" font-size="14" fill="var(--amber)">03</text>
+        <text x="610" y="126" text-anchor="middle" class="flow-label">OFAC screen</text>
+        <text x="610" y="140" text-anchor="middle" class="flow-sub">compliance check</text>
+      </g>
+      <g>
+        <circle cx="910" cy="80" r="26" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1.5"/>
+        <text x="910" y="85" text-anchor="middle" class="flow-label" font-size="14">04</text>
+        <text x="910" y="126" text-anchor="middle" class="flow-label">Notified</text>
+        <text x="910" y="140" text-anchor="middle" class="flow-sub">approver + client</text>
+      </g>
+      <circle r="4.5" fill="var(--accent)" class="flow-pulse" style="offset-path:path('M 70 80 L 340 80 L 610 80 L 910 80');">
+      </circle>
+    </svg>
+  </div>
+</section>
+
+<section id="about" class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow">01 · About</div>
+    <h2>Five years of turning manual, error-prone workflows into governed, automated systems.</h2>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p>I started in mechanical engineering and moved into software because I liked systems I could actually trace end-to-end — a request goes in, a set of rules decides what happens to it, and something observable comes out the other side. That's most of what I've built since: <strong>ERP and workflow platforms</strong> where the hard part isn't the CRUD, it's the approval logic, the audit trail, and what happens when a downstream service is briefly unavailable.</p>
+      <p>At <strong>SysThink Technologies</strong> I helped migrate a legacy manufacturing ERP to microservices — asynchronous messaging over AWS SQS, the Saga pattern for distributed transactions, circuit breakers so one failing service didn't take the rest down with it. At <strong>Incedo</strong>, I'm now doing the equivalent for wealth management: Java microservices orchestrated with Camunda BPM that move SME account requests through validation, OFAC compliance screening, and approval, for a platform used by advisors at Steward Partners.</p>
+      <p>I care about the same things whether the domain is a factory floor or a brokerage: <strong>correctness under concurrency, clear audit trails, and code a teammate can pick up without a walkthrough.</strong></p>
+    </div>
+    <div class="stat-list">
+      <div class="stat"><div class="num">5 yrs</div><div class="lbl">professional experience</div></div>
+      <div class="stat"><div class="num">20,000+</div><div class="lbl">users on systems I've shipped</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">industries — manufacturing &amp; wealth management</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow">02 · Experience</div>
+    <h2>Where the workflows got built.</h2>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-role current">Present</div>
+      <div class="job-company">Incedo Inc</div>
+      <div class="job-time">Jan 2026 — Present<br>Chennai, IN</div>
+    </div>
+    <div>
+      <div class="job-title">Senior Software Engineer</div>
+      <ul>
+        <li>Develop and enhance Java microservices for a wealth-management workflow platform used by Steward Partners, streamlining SME form processing through multi-stage approval workflows.</li>
+        <li>Design workflow orchestration with Camunda BPM, automating complex business processes and improving traceability and compliance.</li>
+        <li>Build and deploy scalable microservices on Azure Container Services, using Azure Event Grid for event-driven communication between distributed systems.</li>
+        <li>Integrate OFAC compliance screening to validate client and transaction data against sanctioned-entity lists, enabling proactive risk detection and automated compliance notifications.</li>
+        <li>Built an event-driven email notification service communicating workflow status, approvals and action items to stakeholders.</li>
+        <li>Jazz Wealth Platform: built a multi-stage account onboarding workflow for advisors, integrating Goldman Sachs account/Folio data for real-time validation, e-signature collection, status-filtered request tracking and client risk-profile management, plus React UI enhancements for the advisor experience.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-role">2021 – 2025</div>
+      <div class="job-company">SysThink Technologies</div>
+      <div class="job-time">Aug 2021 — Dec 2025<br>Chennai, IN</div>
+    </div>
+    <div>
+      <div class="job-title">Full-Stack Developer</div>
+      <ul>
+        <li>Built an ERP application for master data management, shop-floor operations, production tracking and automated reporting across manufacturing units.</li>
+        <li>Implemented a dynamic production approval workflow based on operator-to-output ratios, preventing inaccurate entries and keeping output aligned with AME standards.</li>
+        <li>Migrated legacy systems to microservices with AWS SQS and the Saga pattern for distributed transactions, adding circuit breakers and retries to prevent cascading failures.</li>
+        <li>Delivered a Skill &amp; Training Management system and an Issue Tracking &amp; Escalation platform for GARRETT Motion.</li>
+        <li>Migrated authentication from Ping Federated OpenToken to Azure Entra ID (OAuth 2.0) across MVC and SPA apps.</li>
+        <li>Automated onboarding for the SkillMap application (20,000+ global users) by integrating Oracle DB via MuleSoft — verifying managers, assigning plants, and triggering approval emails through SQL Server DB Mail.</li>
+        <li>Moved app access from shared generic IDs to role-based access, improving accountability during plant Tier meetings.</li>
+        <li>Mentored junior developers, ran code reviews, and led database design and sprint planning in Jira.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow">03 · Stack</div>
+    <h2>Tools I reach for.</h2>
+  </div>
+  <div class="skill-groups">
+    <div class="skill-group">
+      <h3>Frontend</h3>
+      <div class="tag-row">
+        <span class="tag">ReactJS</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Backend &amp; Languages</h3>
+      <div class="tag-row">
+        <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">SQL</span><span class="tag">Multithreading</span><span class="tag">JUnit</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Databases</h3>
+      <div class="tag-row">
+        <span class="tag">MySQL</span><span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Cloud</h3>
+      <div class="tag-row">
+        <span class="tag">Azure Entra ID</span><span class="tag">Container Apps</span><span class="tag">Event Grid</span><span class="tag">AWS S3</span><span class="tag">Lambda</span><span class="tag">API Gateway</span><span class="tag">EC2</span><span class="tag">IAM</span><span class="tag">RDS</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>DevOps &amp; Scheduling</h3>
+      <div class="tag-row">
+        <span class="tag">Hangfire (Cron)</span><span class="tag">CI/CD</span><span class="tag">Docker</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>API &amp; Data</h3>
+      <div class="tag-row">
+        <span class="tag">REST</span><span class="tag">OAuth 2.0</span><span class="tag">Postman</span><span class="tag">SMTP</span><span class="tag">JSON</span><span class="tag">CSV</span><span class="tag">Excel</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Version Control</h3>
+      <div class="tag-row">
+        <span class="tag">Git</span><span class="tag">Bitbucket</span><span class="tag">SourceTree</span><span class="tag">GitHub</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Project Tools</h3>
+      <div class="tag-row">
+        <span class="tag">Jira</span><span class="tag">Confluence</span><span class="tag">SonarQube</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow">04 · Credentials</div>
+    <h2>Certifications &amp; education.</h2>
+  </div>
+  <div class="two-col">
+    <div class="list-card">
+      <h3>Certifications</h3>
+      <div class="row">AWS CloudFront: Serve content from multiple S3 buckets <span class="yr">· Coursera</span></div>
+      <div class="row">AWS S3 Basics <span class="yr">· Coursera</span></div>
+      <div class="row">Build a CI/CD Pipeline with Docker: Code to Deployment <span class="yr">· Coursera</span></div>
+      <div class="row">Problem Solving <span class="yr">· HackerRank</span></div>
+      <div class="row">REST API Intermediate <span class="yr">· HackerRank</span></div>
+      <div class="row">SQL Intermediate <span class="yr">· HackerRank</span></div>
+    </div>
+    <div class="list-card">
+      <h3>Education</h3>
+      <div class="row"><span class="deg">BE, Mechanical Engineering</span>Anna University (CEG Campus), Chennai <span class="yr">· 2017–2021 · CGPA 7.58</span></div>
+      <div class="row"><span class="deg">HSC</span>Ideal Higher Secondary School, Erode <span class="yr">· 2017 · 97.67%</span></div>
+      <div class="row"><span class="deg">SSLC</span>St. Arulanandhar Hr Sec School, Oriyur <span class="yr">· 2015 · 98.8%</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap">
+  <div class="sec-head">
+    <div class="sec-eyebrow">05 · Contact</div>
+    <h2>Have a system that needs building?</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Open to backend and full-stack roles, freelance builds, or a conversation about workflow and event-driven architecture. Fill in the form, or reach out directly — either lands in my inbox.</p>
+      <a class="contact-link" href="mailto:kabileshkannas@gmail.com"><span class="k">Email</span> kabileshkannas@gmail.com</a>
+      <a class="contact-link" href="tel:+916381420319"><span class="k">Phone</span> +91 63814 20319</a>
+      <a class="contact-link" href="#" onclick="return false;"><span class="k">Based in</span> Chennai / Coimbatore, India</a>
+    </div>
+
+    <form id="contactForm">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required placeholder="you@company.com">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="What are you building?"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Send message →</button>
+      <div id="formStatus" class="form-status"></div>
+      <p class="form-note">This opens your email app with the message pre-filled to <a href="mailto:kabileshkannas@gmail.com">kabileshkannas@gmail.com</a> — nothing is stored or sent through a third party.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Kabilesh Kanna S. Built with plain HTML, CSS and a bit of SVG.</p>
+    <div class="foot-links">
+      <a href="mailto:kabileshkannas@gmail.com">Email</a>
+      <a href="tel:+916381420319">Call</a>
+      <a href="#about">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if(!name || !email || !message){
+      status.textContent = 'Please fill in every field.';
+      status.className = 'form-status err';
+      return;
+    }
+    const subject = encodeURIComponent('Portfolio contact from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    const mailto = 'mailto:kabileshkannas@gmail.com?subject=' + subject + '&body=' + body;
+    window.location.href = mailto;
+    status.textContent = 'Opening your email app…';
+    status.className = 'form-status ok';
+  });
+</script>
+
+</body>
+</html>
